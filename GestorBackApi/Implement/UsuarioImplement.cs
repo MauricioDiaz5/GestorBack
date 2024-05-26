@@ -1,10 +1,7 @@
-﻿using GestorBackApi.Interface;
-using GestorBackApi.Model;
+﻿using GestorBackApi.Model;
 using GestorBackApi.Util;
-using System;
 using System.Data;
 using System.Data.SqlClient;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestorBackApi.Implement
 {
@@ -24,7 +21,7 @@ namespace GestorBackApi.Implement
         }
 
         //metodo para validar inicio de session en base de datos
-        public RespuestaGenerica ValidaSession(SessionRequest session)
+        public RespuestaGenerica ValidaSessionBD(SessionRequest session)
         {
             //instancia de la clase respuesta generica para retornar la respuesta del metodo
             RespuestaGenerica respuesta = new RespuestaGenerica();
@@ -34,7 +31,7 @@ namespace GestorBackApi.Implement
             {
                 //se definen los parametros de entra del procedimiento almacenado(SP)
                 cmd.Parameters.AddWithValue("@USUARIO", session.Usuario);
-                cmd.Parameters.AddWithValue("@CONTRASENA", session.Password);
+                cmd.Parameters.AddWithValue("@CONTRASENA", session.Contrasena);
                 //se definen parametros de salida del SP
                 cmd.Parameters.Add("@CODIGO", SqlDbType.Int).Direction = ParameterDirection.Output;
                 cmd.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
@@ -84,7 +81,7 @@ namespace GestorBackApi.Implement
             return respuesta;
         }
 
-        public RespuestaGenerica ValidaUsuario(string usuario)
+        public RespuestaGenerica ValidaUsuarioBD(string usuario)
         {
             //instancia de la clase respuesta generica para retornar la respuesta del metodo
             RespuestaGenerica respuesta = new RespuestaGenerica();
@@ -106,6 +103,48 @@ namespace GestorBackApi.Implement
                 respuesta.Codigo = Convert.ToInt32(cmd.Parameters["@CODIGO"].Value);
                 respuesta.Mensaje = Convert.ToString(cmd.Parameters["@MENSAJE"].Value);
                 respuesta.Datos = Convert.ToInt32(cmd.Parameters["@EXISTE"].Value);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return respuesta;
+        }
+
+        public RespuestaGenerica AltaUsuarioBD(UsuarioModel usuario)
+        {
+            //instancia de la clase respuesta generica para retornar la respuesta del metodo
+            RespuestaGenerica respuesta = new RespuestaGenerica();
+            //se define el nombre del sp
+            cmd.CommandText = "SP_SET_USUARIO";
+            try
+            {
+                //se definen los parametros de entra del procedimiento almacenado(SP)
+                cmd.Parameters.AddWithValue("@USUARIO", usuario.IdUsuario);
+                cmd.Parameters.AddWithValue("@IDROL", usuario.IdRol);
+                cmd.Parameters.AddWithValue("@IDAREA", usuario.IdArea);
+                cmd.Parameters.AddWithValue("@NOMBRE", usuario.Nombre);
+                cmd.Parameters.AddWithValue("@APPATERNO", usuario.Paterno);
+                cmd.Parameters.AddWithValue("@APMATERNO", usuario.Materno);
+                cmd.Parameters.AddWithValue("@EDAD", usuario.Edad);
+                cmd.Parameters.AddWithValue("@SEXO", usuario.Sexo);
+                cmd.Parameters.AddWithValue("@DIRECCION", usuario.Direccion);
+                cmd.Parameters.AddWithValue("@CORREO", usuario.Correo);
+                cmd.Parameters.AddWithValue("@CONTRASENA", usuario.Contrasena);
+                cmd.Parameters.AddWithValue("@FECHAALTA", usuario.FechaAlta);
+                cmd.Parameters.AddWithValue("@ACTIVO", usuario.Activo);
+                cmd.Parameters.AddWithValue("@TELEFONO", usuario.Telefono);
+
+                //se definen parametros de salida del SP
+                cmd.Parameters.Add("@CODIGO", SqlDbType.Int).Direction = ParameterDirection.Output;
+                cmd.Parameters.Add("@MENSAJE", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+                //se abre la conexion con la base de datos
+                conn.Open();
+                //se ejecuta el sp 
+                int i = cmd.ExecuteNonQuery();
+                //recuperacion de codigo, mensaje y datos retornados por el sp
+                respuesta.Codigo = Convert.ToInt32(cmd.Parameters["@CODIGO"].Value);
+                respuesta.Mensaje = Convert.ToString(cmd.Parameters["@MENSAJE"].Value);
             }
             catch (Exception e)
             {

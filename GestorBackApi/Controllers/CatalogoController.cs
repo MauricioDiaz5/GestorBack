@@ -1,6 +1,7 @@
 ﻿using GestorBackApi.Interface;
 using GestorBackApi.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace GestorBackApi.Controllers
 {
@@ -17,7 +18,7 @@ namespace GestorBackApi.Controllers
 
         [HttpGet]
         [Route("catalogos")]
-        public IActionResult GetCatalogo(int idCatalogo)
+        public IActionResult GetCatalogo([FromQuery] [Required] int idCatalogo)
         {
             RespuestaGenerica respuesta = _catalogo.getCatalogos(idCatalogo);
             return Ok(respuesta);

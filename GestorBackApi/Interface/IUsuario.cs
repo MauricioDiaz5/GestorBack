@@ -6,5 +6,6 @@ namespace GestorBackApi.Interface
     {
         RespuestaGenerica Session(SessionRequest request);
         RespuestaGenerica UsuarioValido(string usuario);
+        RespuestaGenerica AltaUsuario(UsuarioModel request);
     }
 }

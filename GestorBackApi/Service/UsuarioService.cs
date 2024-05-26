@@ -13,14 +13,19 @@ namespace GestorBackApi.Service
             usuarioImplement = new UsuarioImplement();
         }
 
+        public RespuestaGenerica AltaUsuario(UsuarioModel request)
+        {
+            return usuarioImplement.AltaUsuarioBD(request);
+        }
+
         public RespuestaGenerica Session(SessionRequest request)
         {
-            return usuarioImplement.ValidaSession(request);
+            return usuarioImplement.ValidaSessionBD(request);
         }
 
         public RespuestaGenerica UsuarioValido(string usuario)
         {
-            return usuarioImplement.ValidaUsuario(usuario);
+            return usuarioImplement.ValidaUsuarioBD(usuario);
         }
     }
 }

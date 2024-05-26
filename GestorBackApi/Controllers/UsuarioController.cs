@@ -3,6 +3,7 @@ using GestorBackApi.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace GestorBackApi.Controllers
 {
@@ -19,7 +20,7 @@ namespace GestorBackApi.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult Login(SessionRequest request)
+        public IActionResult Login([FromBody] SessionRequest request)
         {
             RespuestaGenerica respuesta = _usuario.Session(request);
             return Ok(respuesta);
@@ -27,9 +28,17 @@ namespace GestorBackApi.Controllers
 
         [HttpGet]
         [Route("validaUsuario")]
-        public IActionResult Login(string usuario)
+        public IActionResult Login([FromQuery][Required] string usuario)
         {
             RespuestaGenerica respuesta = _usuario.UsuarioValido(usuario);
+            return Ok(respuesta);
+        }
+
+        [HttpPost]
+        [Route("registro")]
+        public IActionResult AltaUsuario([FromBody] UsuarioModel request)
+        {
+            RespuestaGenerica respuesta = _usuario.AltaUsuario(request);
             return Ok(respuesta);
         }
     }

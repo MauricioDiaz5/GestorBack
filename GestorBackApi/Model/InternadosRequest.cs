@@ -1,4 +1,6 @@
-﻿namespace GestorBackApi.Model
+﻿using System.Numerics;
+
+namespace GestorBackApi.Model
 {
     public class InternadosRequest
     {
@@ -16,12 +18,12 @@
 
         }
 
-        public int Operacion { get; set; }
-        public int IdInternado { get; set; }
+        public int? Operacion { get; set; }
+        public int? IdInternado { get; set; }
         public string? IdPaciente { get; set;}
         public string? Doctor { get; set; }
-        public int IdArea { get; set; }
-        public int IdEstatus { get; set; }
+        public int? IdArea { get; set; }
+        public int? IdEstatus { get; set; }
         public string? Motivo { get; set; }
         public string? FechaIngreso { get; set; }
         public string? FechaSalida { get; set; }

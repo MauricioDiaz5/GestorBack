@@ -1,0 +1,27 @@
+﻿using GestorBackApi.Interface;
+using GestorBackApi.Model;
+using Microsoft.AspNetCore.Mvc;
+
+namespace GestorBackApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CatalogoController : ControllerBase
+    {
+        private readonly ICatalogo _catalogo;
+
+        public CatalogoController(ICatalogo catalogo)
+        {
+            _catalogo = catalogo;
+        }
+
+        [HttpGet]
+        [Route("catalogos")]
+        public IActionResult GetCatalogo(int idCatalogo)
+        {
+            RespuestaGenerica respuesta = _catalogo.getCatalogos(idCatalogo);
+            return Ok(respuesta);
+
+        }
+    }
+}

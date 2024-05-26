@@ -23,6 +23,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuario, UsuarioService>();
 builder.Services.AddScoped<ICatalogo, CatalogoService>();
+builder.Services.AddScoped<ICitas, CitasService>();
+builder.Services.AddScoped<IInternados, InternadosService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

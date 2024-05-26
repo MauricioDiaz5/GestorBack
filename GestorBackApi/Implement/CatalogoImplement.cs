@@ -1,10 +1,7 @@
-﻿using GestorBackApi.Interface;
-using GestorBackApi.Model;
+﻿using GestorBackApi.Model;
 using GestorBackApi.Util;
-using System;
 using System.Data;
 using System.Data.SqlClient;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestorBackApi.Implement
 {

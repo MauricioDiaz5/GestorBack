@@ -78,6 +78,10 @@ namespace GestorBackApi.Implement
             {
                 Console.WriteLine(e);
             }
+            finally
+            {
+                conn.Close();
+            }
             return respuesta;
         }
 
@@ -107,6 +111,10 @@ namespace GestorBackApi.Implement
             catch (Exception e)
             {
                 Console.WriteLine(e);
+            }
+            finally
+            {
+                conn.Close();
             }
             return respuesta;
         }
@@ -149,6 +157,10 @@ namespace GestorBackApi.Implement
             catch (Exception e)
             {
                 Console.WriteLine(e);
+            }
+            finally
+            {
+                conn.Close();
             }
             return respuesta;
         }

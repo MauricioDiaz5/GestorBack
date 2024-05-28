@@ -103,6 +103,10 @@ namespace GestorBackApi.Implement
             {
                 Console.WriteLine(e);
             }
+            finally
+            {
+                conn.Close();
+            }
             return respuesta;
         }
     }

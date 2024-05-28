@@ -30,7 +30,7 @@ namespace GestorBackApi.Service
             {
                 respuesta.Codigo = 0;
                 respuesta.Mensaje = "Usuario o Contraseña no valido";
-                respuesta.Datos = 0;
+                respuesta.Datos = string.Empty;
                 return respuesta;
             }
         }

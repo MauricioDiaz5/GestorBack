@@ -20,7 +20,19 @@ namespace GestorBackApi.Service
 
         public RespuestaGenerica Session(SessionRequest request)
         {
-            return usuarioImplement.ValidaSessionBD(request);
+            RespuestaGenerica respuesta = usuarioImplement.ValidaSessionBD(request);
+            UsuarioModel usuario = (UsuarioModel)respuesta.Datos;
+            if(respuesta.Codigo == 1 && !string.IsNullOrEmpty(usuario.IdUsuario))
+            {
+                return respuesta;
+            }
+            else
+            {
+                respuesta.Codigo = 0;
+                respuesta.Mensaje = "Usuario o Contraseña no valido";
+                respuesta.Datos = 0;
+                return respuesta;
+            }
         }
 
         public RespuestaGenerica UsuarioValido(string usuario)
